@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const mongoose = require('mongoose')
-const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority"
+const user = require('../models/user')
+const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority",
+
 
 mongoose.connect(db, err => {
 
@@ -53,6 +55,36 @@ router.post('/fetch', (req, res) => {
         }
       }
     })
+  });
+
+  router.get('/getUsers', (req, res) => {
+    User.find((err, user) => {
+    if (err) {
+      res.send(err);    
+    }
+  
+    res.json(user);
+     });  
+   });
+
+   router.put('/update/:id',async(req,res) =>{
+     user = await User.findById(req.params.id)
+     user.name = req.body.name;
+     user.email = req.body.email;
+     user.mobile = req.body.mobile;
+
+     user.save((error, registerdUser) => {
+
+      if (error){
+          console.log(error)
+      }
+      else{
+          res.status(200).send(registerdUser)
+      }
+      
   })
+   }) 
+
+
 
 module.exports = router

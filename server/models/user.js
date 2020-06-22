@@ -4,6 +4,7 @@ const Scheema = mongoose.Schema
 const userSchema = new Scheema({
 
     email: String,
-    password: String
+    name: String,
+    mobile: String
 })
 module.exports = mongoose.model('user', userSchema, 'People')

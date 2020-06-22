@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SaveService } from './save.service';
+import { User } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -8,22 +9,36 @@ import { SaveService } from './save.service';
 })
 export class AppComponent implements OnInit {
   title = 'Users';
+  users: User[];
+  userData: User;
 
   registerData = {};
-  constructor( private _Save: SaveService) { }
+  constructor( private saveService: SaveService) {
+  }
 
   ngOnInit() {
-
+   this.loadUsers();
+   this.userData = new User();
   }
 
-  registerUser() {
-    this._Save.registerUser(this.registerData)
-    .subscribe(
-
-      res => console.log(res),
-      err => console.log(err)
-    );
+registerUsers() {
+    // tslint:disable-next-line: no-shadowed-variable
+    this.saveService.registerUser(this.userData).subscribe((user: User) => {
+    });
   }
-  }
+    loadUsers() {
+    this.saveService.getUsers().subscribe((users: User[]) => {
+      this.users = users;
+    }, error => {
+      console.error();
+    });
 
 
+// updateUser(user: User) {
+//   this.saveService.updateUser(user).subscribe((res) => {
+//   this.user = new User();
+//   });
+
+}
+
+}
