@@ -8,23 +8,46 @@
     <form action="" class="form">
       <div class="form-group">
         <label for="">Email</label>
-        <input [(ngModel)] ="registerData.email" name="email"  type="text" class="form-control rounded-0" required>
+        <input [(ngModel)] ="userData.email" name="email"  type="text" class="form-control rounded-0" required>
       </div>
 
       <div class="form-group">
         <label for="">Mobile No.</label>
-        <input [(ngModel)] ="registerData.mobile" name="mobile"  type="text" class="form-control rounded-0" required>
+        <input [(ngModel)] ="userData.mobile" name="mobile"  type="text" class="form-control rounded-0" required>
       </div>
 
       <div class="form-group">
-        <label for="">Password</label>
-        <input [(ngModel)] ="registerData.password" name="password"  type="password" class="form-control rounded-0" required>
+        <label for="">Name</label>
+        <input [(ngModel)] ="userData.name" name="Name"  type="password" class="form-control rounded-0" required>
       </div>
 
-      <button (click) ="registerUser()" type="button" class="btn btn-primary float-right">Save</button>
+      <button (click) ="registerUsers()" type="button" class="btn btn-primary float-right">Save</button>
     </form>
    </div>
  </div>
+</div>
+
+<div class="col s7">
+  <table class="responsive-table highlight">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Office</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tr *ngFor="let person of users">
+        <td>{{person.name}}</td>
+        <td>{{person.email}}</td>
+        <td>{{person.mobile}}</td>
+        <td>
+           <!-- <a class="action-btn" (click)="onEdit(user)">
+              <i class="material-icons">edit</i>
+            </a> -->
+          </td>
+      </tr>
+    </table>
 </div>
 
 </div>
