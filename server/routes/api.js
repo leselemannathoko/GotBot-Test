@@ -2,23 +2,24 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 const mongoose = require('mongoose')
-const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority"
+mongoose.connect('mongodb://localhost:27017',{ useUnifiedTopology: true, useNewUrlParser: true  } );
+//const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority"
 
-mongoose.connect(db, err => {
+// mongoose.connect(db, err => {
 
-    if(err)
-     {
-         console.error('Error' + err); 
-     }
+//     if(err)
+//      {
+//          console.error('Error' + err); 
+//      }
 
-    else{
-        console.log('Connectect to MongoDB')
-    }
-})
+//     else{
+//         console.log('Connectect to MongoDB')
+//     }
+// });
 
 router.get('/', (req, res) => {
     res.send('From API route')
-})
+});
 
 router.post('/register', (req, res) => {
     let userData = req.body
@@ -32,8 +33,8 @@ router.post('/register', (req, res) => {
             res.status(200).send(registerdUser)
         }
         
-    })
-})
+    });
+});
 
 router.post('/fetch', (req, res) => {
     let userData = req.body
@@ -52,7 +53,29 @@ router.post('/fetch', (req, res) => {
          
         }
       }
-    })
-  })
+    });
+  });
+
+
+  router.get('/getUsers', (req, res) => {
+     User.find((err, user) => {
+     if (err) {
+       res.send(err);    
+     }
+   
+     res.json(user);
+      });  
+    });
+ 
+    router.put('/update/:id',async(req,res) =>{
+      user = await User.findById(req.params.id)
+      user.name = req.body.name;
+      user.email = req.body.email;
+      user.mobile = req.body.mobile;
+ 
+      user.save(() => {
+       res.json(user)
+   })
+    }) 
 
 module.exports = router
