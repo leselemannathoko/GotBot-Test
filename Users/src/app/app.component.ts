@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SaveService } from './save.service';
 import { User } from './models/user';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
@@ -10,35 +12,40 @@ import { User } from './models/user';
 export class AppComponent implements OnInit {
   title = 'Users';
   users: User[];
+  selecteduser: User;
   userData: User;
 
-  registerData = {};
   constructor( private saveService: SaveService) {
+    this.userData = new User();
+
   }
 
   ngOnInit() {
    this.loadUsers();
-   this.userData = new User();
   }
 
-registerUsers() {
-    // tslint:disable-next-line: no-shadowed-variable
+postUsers() {
+  if (this.userData._id === '') {
     this.saveService.registerUser(this.userData).subscribe((user: User) => {
     });
+  } else {
+    this.saveService.updateUser(this.userData).subscribe((user: User) => {
+      this.loadUsers();
+    });
   }
-    loadUsers() {
+  }
+
+loadUsers() {
     this.saveService.getUsers().subscribe((users: User[]) => {
       this.users = users;
     }, error => {
       console.error();
     });
+  }
 
-
-// updateUser(user: User) {
-//   this.saveService.updateUser(user).subscribe((res) => {
-//   this.user = new User();
-//   });
-
+updateUser(person: User) {
+  this.userData = person;
 }
 
 }
+

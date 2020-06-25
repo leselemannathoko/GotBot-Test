@@ -7,12 +7,6 @@ import { User } from './models/user';
   providedIn: 'root'
 })
 export class SaveService {
-
-  private _registerUrl = `http://localhost:3000/api/register`;
-  private _retrieveUrl = `http://localhost:3000/api/getUsers`;
-  //private _UpdateUrl = `http://localhost:3000/api/update/${User._id}`;
-
-
   constructor(private http: HttpClient) { }
 
 
@@ -24,7 +18,7 @@ export class SaveService {
     return this.http.get<User[]>(`http://localhost:3000/api/getUsers`);
   }
 
-   updateUser(user: User) {
-     return this.http.get(`http://localhost:3000/api/update/${user.id}` );
+   updateUser(person: User) {
+     return this.http.put(`http://localhost:3000/api/update/${person._id}`, person);
    }
 }
