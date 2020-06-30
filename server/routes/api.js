@@ -4,19 +4,19 @@ const User = require('../models/user')
 const mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 const { json } = require('body-parser');
-mongoose.connect('mongodb://localhost:27017',{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false } );
-//const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority"
-// mongoose.connect(db, err => {
+//mongoose.connect('mongodb://localhost:27017',{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false } );
+const db = "mongodb+srv://test:1234@cluster0-hdjuw.mongodb.net/Users?retryWrites=true&w=majority"
+mongoose.connect(db,{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, err => {
 
-//     if(err)
-//      {
-//          console.error('Error' + err); 
-//      }
+    if(err)
+     {
+         console.error('Error' + err); 
+     }
 
-//     else{
-//         console.log('Connectect to MongoDB')
-//     }
-// });
+    else{
+        console.log('Connectect to MongoDB')
+    }
+});
 
 router.get('/', (req, res) => {
     res.send('From API route')
