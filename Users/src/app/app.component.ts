@@ -25,15 +25,24 @@ export class AppComponent implements OnInit {
   }
 
 postUsers() {
-  if (this.userData._id === '') {
+  /*if (this.userData._id == '') {*/
     this.saveService.registerUser(this.userData).subscribe((user: User) => {
+      this.loadUsers();
     });
-  } else {
+  /*}*/
+  /* else {
     this.saveService.updateUser(this.userData).subscribe((user: User) => {
       this.loadUsers();
     });
+  }*/
   }
-  }
+
+updateUsers() {
+  this.saveService.updateUser(this.userData).subscribe((user: User) => {
+    this.loadUsers();
+  });
+
+}
 
 loadUsers() {
     this.saveService.getUsers().subscribe((users: User[]) => {

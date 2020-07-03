@@ -21,8 +21,19 @@
         <label for="">Name</label>
         <input [(ngModel)] ="userData.name" name="Name"  type="text" class="form-control rounded-0" required>
       </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+             <button (click) ="postUsers()" type="button" class="btn btn-primary float-right"> Update</button>
+          </div>
 
-      <button (click) ="postUsers()" type="button" class="btn btn-primary float-right">Save</button>
+      <div class="form-group">
+      <button (click) ="updateUsers()" type="button" class="btn btn-secondary float-right">Save</button>
+      </div>
+
+    </div>
+  </div> 
     </form>
    </div>
  </div>
